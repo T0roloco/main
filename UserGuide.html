@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Student Planner - User Guide</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level3">AB-3</a></li><li class="nav-item"><a class="nav-link active" href="index.html">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">Student-Planner</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2113-AY1819S1-T13-1/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Student Planner - User Guide</h1></div><div id="content"><div id="preamble">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">Student-Planner</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2113-AY1819S1-T13-1/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Student Planner - User Guide</h1></div><div id="content"><div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>By: <code>CS2113-AY1819S1-T13-1</code>      Since: <code>September 2018</code>      Licence: <code>MIT</code></p>
@@ -26,8 +26,10 @@
 <li><a href="#exiting-the-program-code-exit-code">3.11. Exiting the program : <code>exit</code></a></li>
 <li><a href="#saving-the-data">3.12. Saving the data</a></li>
 <li><a href="#sending-notification">3.13. Sending notification</a></li>
-<li><a href="#backing-up-and-restoring-of-data-code-coming-in-v1-2-v1-3-code">3.14. Backing up and restoring of data <code>[coming in v1.2 - v1.3]</code></a></li>
-<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.15. Encrypting data files <code>[coming in v2.0]</code></a></li>
+<li><a href="#local-backup-code-coming-in-v1-2-code">3.14. Local backup <code>Coming in [v1.2]</code></a></li>
+<li><a href="#online-backup-code-coming-in-v1-3-code">3.15. Online backup <code>Coming in [v1.3]</code></a></li>
+<li><a href="#setup-or-restore-backup-data">3.16. Setup or restore backup data</a></li>
+<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.17. Encrypting data files <code>[coming in v2.0]</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
@@ -424,30 +426,27 @@ There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="backing-up-and-restoring-of-data-code-coming-in-v1-2-v1-3-code"><a class="link" href="#backing-up-and-restoring-of-data-code-coming-in-v1-2-v1-3-code">3.14. Backing up and restoring of data <code>[coming in v1.2 - v1.3]</code></a></h3>
-<div class="sect4">
-<h5 id="local-backup-code-coming-in-v1-2-code"><a class="link" href="#local-backup-code-coming-in-v1-2-code">Local backup <code>Coming in [v1.2]</code></a></h5>
+<h3 id="local-backup-code-coming-in-v1-2-code"><a class="link" href="#local-backup-code-coming-in-v1-2-code">3.14. Local backup <code>Coming in [v1.2]</code></a></h3>
 <div class="paragraph">
 <p>Allow user to backup data <em>locally</em> by calling <code>backup local &lt;path to backup too&gt;</code><br>
 Where the backup folder is a folder the user has write permissions to.</p>
 </div>
 </div>
-<div class="sect4">
-<h5 id="online-backup-code-coming-in-v1-3-code"><a class="link" href="#online-backup-code-coming-in-v1-3-code">Online backup <code>Coming in [v1.3]</code></a></h5>
+<div class="sect2">
+<h3 id="online-backup-code-coming-in-v1-3-code"><a class="link" href="#online-backup-code-coming-in-v1-3-code">3.15. Online backup <code>Coming in [v1.3]</code></a></h3>
 <div class="paragraph">
 <p>Allow user to backup data to online services like GitHub gists or Google Drive by calling <code>backup online &lt;service&gt;</code><br>
 Where the service to backup data to has already been setup beforehand</p>
 </div>
 </div>
-<div class="sect4">
-<h5 id="setup-or-restore-backup-data"><a class="link" href="#setup-or-restore-backup-data">Setup or restore backup data</a></h5>
+<div class="sect2">
+<h3 id="setup-or-restore-backup-data"><a class="link" href="#setup-or-restore-backup-data">3.16. Setup or restore backup data</a></h3>
 <div class="paragraph">
 <p>Allow user to setup backup settings (setup cloud services like GitHub gists or Google Drive, backup location) by calling <code>backup doctor</code></p>
 </div>
 </div>
-</div>
 <div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.15. Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.17. Encrypting data files <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p>Allow user to enable encryption by calling <code>encrypt p/PASSWORD</code><br>
 Application will prompt for decryption password if encryption is enabled</p>
@@ -507,4 +506,4 @@ e.g.<code>select 2</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-09-17 13:25:17 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-09-18 13:12:24 UTC</div></div></div></body></html>
