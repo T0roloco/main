@@ -1,9 +1,12 @@
 package seedu.address.model;
 
+import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
 
 /**
  * The API of the Model component.
@@ -17,6 +20,9 @@ public interface Model {
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
+
+    /** Returns the UserPreferences */
+    UserPrefs getUserPrefs();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -75,4 +81,32 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /**
+     * Backup current address book to storage.
+     */
+    void backupAddressBook();
+    void backupAddressBook(Path backupPath);
+
+    /**
+     * Returns true if a task with the same identity as {@code task} exists in the address book.
+     */
+    boolean hasTask(Task task);
+
+    /**
+     * Adds the given task.
+     * {@code task} must not already exist in the address book.
+     */
+    void addTask(Task person);
+
+    /**
+     * Returns true if an event with the same identity as {@code event} exists in the student planner.
+     */
+    boolean hasEvent(Event event);
+
+    /**
+     * Adds the given event.
+     * {@code event} must not already exist in the student planner.
+     */
+    void addEvent(Event event);
 }
