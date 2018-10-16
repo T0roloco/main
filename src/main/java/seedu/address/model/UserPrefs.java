@@ -12,10 +12,13 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
+    private Path addressBookFilePath;
+    private Path addressBookBackupFilePath;
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
+        setAddressBookFilePath(Paths.get("data" , "addressbook.xml"));
+        setAddressBookBackupFilePath(Paths.get("data" , "addressbook.bak"));
     }
 
     public GuiSettings getGuiSettings() {
@@ -31,11 +34,19 @@ public class UserPrefs {
     }
 
     public Path getAddressBookFilePath() {
-        return addressBookFilePath;
+        return addressBookFilePath == null ? Paths.get("data" , "addressbook.xml") : addressBookFilePath;
     }
 
     public void setAddressBookFilePath(Path addressBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
+    }
+
+    public Path getAddressBookBackupFilePath() {
+        return addressBookBackupFilePath == null ? Paths.get("data" , "addressbook.bak") : addressBookBackupFilePath;
+    }
+
+    public void setAddressBookBackupFilePath(Path addressBookBackupFilePath) {
+        this.addressBookBackupFilePath = addressBookBackupFilePath;
     }
 
     @Override
@@ -50,12 +61,13 @@ public class UserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return Objects.equals(guiSettings, o.guiSettings)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath);
+                && Objects.equals(addressBookFilePath, o.addressBookFilePath)
+                && Objects.equals(addressBookBackupFilePath, o.addressBookBackupFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, addressBookFilePath, addressBookBackupFilePath);
     }
 
     @Override
@@ -63,6 +75,7 @@ public class UserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings.toString());
         sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data backup file location : " + addressBookBackupFilePath);
         return sb.toString();
     }
 
