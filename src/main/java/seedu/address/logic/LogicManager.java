@@ -75,6 +75,7 @@ public class LogicManager extends ComponentManager implements Logic {
         commandList.add(ExitCommand.COMMAND_WORD);
         commandList.add(FindAddressCommand.COMMAND_WORD);
         commandList.add(FindCommand.COMMAND_WORD);
+        commandList.add(FindCommand.COMMAND_WORD + " KEYWORD");
         commandList.add(FindNameCommand.COMMAND_WORD);
         commandList.add(FindPhoneCommand.COMMAND_WORD);
         commandList.add(HelpCommand.COMMAND_WORD);
