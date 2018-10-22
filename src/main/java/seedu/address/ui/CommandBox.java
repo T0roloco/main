@@ -2,7 +2,9 @@ package seedu.address.ui;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
+import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
 import javafx.collections.ObservableList;
@@ -18,8 +20,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-
-
 /**
  * The UI component that is responsible for receiving user command inputs.
  */
@@ -31,6 +31,7 @@ public class CommandBox extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
     private ListElementPointer historySnapshot;
+    private AutoCompletionBinding autoCompletionBinding;
 
     private ArrayList<String> commandList;
 
@@ -43,7 +44,13 @@ public class CommandBox extends UiPart<Region> {
         this.commandList = logic.getCommandList();
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
-        TextFields.bindAutoCompletion(commandTextField, commandList);
+        //@@author ChenSongJian
+        autoCompletionBinding = TextFields.bindAutoCompletion(commandTextField, commandList -> {
+            return commandList.getUserText().isEmpty() ? null : this.commandList.stream().filter(command -> {
+                return command.toLowerCase().startsWith(commandList.getUserText().toLowerCase());
+            }).collect(Collectors.toList());
+        });
+        //@@
         historySnapshot = logic.getHistorySnapshot();
     }
 
@@ -156,5 +163,9 @@ public class CommandBox extends UiPart<Region> {
 
         styleClass.add(ERROR_STYLE_CLASS);
     }
-
+    //@@author ChenSongJian
+    public void offAutoComplete() {
+        this.autoCompletionBinding.dispose();
+    }
+    //@@
 }
