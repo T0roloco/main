@@ -135,7 +135,7 @@ Returns `mario` and `Mario Gonzalez`
 * `findaddress mario alex david` +
 Returns any contacts having names or body that contains `mario`, `alex`, or `david`
 
-=== Locating contacts by phone: `findname`
+=== Locating contacts by phone: `findphone`
 
 Finds contacts whose phone number or body contain any of the given keywords. +
 Format: `findname KEYWORD [MORE_KEYWORDS]`
