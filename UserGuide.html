@@ -17,19 +17,30 @@
 <li><a href="#adding-a-task-code-add-code">3.2. Adding a task: <code>add</code></a></li>
 <li><a href="#listing-all-tasks-code-list-code">3.3. Listing all tasks : <code>list</code></a></li>
 <li><a href="#editing-a-task-code-edit-code">3.4. Editing a task : <code>edit</code></a></li>
-<li><a href="#locating-tasks-by-name-code-find-code">3.5. Locating tasks by name: <code>find</code></a></li>
-<li><a href="#deleting-a-task-code-delete-code">3.6. Deleting a task : <code>delete</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">3.7. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">3.8. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.9. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">3.10. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">3.11. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">3.12. Saving the data</a></li>
-<li><a href="#sending-notification">3.13. Sending notification</a></li>
-<li><a href="#local-backup-code-coming-in-v1-2-code">3.14. Local backup <code>Coming in [v1.2]</code></a></li>
-<li><a href="#online-backup-code-coming-in-v1-3-code">3.15. Online backup <code>Coming in [v1.3]</code></a></li>
-<li><a href="#setup-or-restore-backup-data">3.16. Setup or restore backup data</a></li>
-<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.17. Encrypting data files <code>[coming in v2.0]</code></a></li>
+<li><a href="#locating-contacts-by-address-code-findaddress-code">3.5. Locating contacts by address: <code>findaddress</code></a></li>
+<li><a href="#locating-contacts-by-name-code-findname-code">3.6. Locating contacts by name: <code>findname</code></a></li>
+<li><a href="#locating-contacts-by-phone-code-findphone-code">3.7. Locating contacts by phone: <code>findphone</code></a></li>
+<li><a href="#locating-tasks-by-name-code-find-code">3.8. Locating tasks by name: <code>find</code></a></li>
+<li><a href="#deleting-a-task-code-delete-code">3.9. Deleting a task : <code>delete</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">3.10. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undoing-previous-command-code-undo-code">3.11. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.12. Redoing the previously undone command : <code>redo</code></a></li>
+<li><a href="#clearing-all-entries-code-clear-code">3.13. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">3.14. Exiting the program : <code>exit</code></a></li>
+<li><a href="#adding-an-expense-code-addexpense-code">3.15. Adding an expense: <code>addExpense</code></a></li>
+<li><a href="#editing-an-expense-code-editexpense-code">3.16. Editing an expense : <code>editExpense</code></a></li>
+<li><a href="#deleting-an-expense-code-deleteexpense-code">3.17. Deleting an expense : <code>deleteExpense</code></a></li>
+<li><a href="#undoing-previous-command-code-undoexpense-code">3.18. Undoing previous command : <code>undoExpense</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redoexpense-code">3.19. Redoing the previously undone command : <code>redoExpense</code></a></li>
+<li><a href="#clearing-all-expense-entries-code-clearexpense-code">3.20. Clearing all expense entries : <code>clearExpense</code></a></li>
+<li><a href="#displaying-expense-trend-code-expensetrend-code">3.21. Displaying expense trend : <code>expenseTrend</code></a></li>
+<li><a href="#displaying-monthly-expense-code-monthlyexpense-code">3.22. Displaying monthly expense : <code>monthlyExpense</code></a></li>
+<li><a href="#saving-the-data">3.23. Saving the data</a></li>
+<li><a href="#sending-notification">3.24. Sending notification</a></li>
+<li><a href="#backup-data-code-backup-code">3.25. Backup data : <code>backup</code></a></li>
+<li><a href="#restore-data-code-restore-code">3.26. Restore data : <code>restore</code></a></li>
+<li><a href="#configure-backup-and-restore-settings-code-coming-in-v2-0-code">3.27. Configure backup and restore settings <code>[coming in v2.0]</code></a></li>
+<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.28. Encrypting data files <code>[coming in v2.0]</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
@@ -215,7 +226,136 @@ Edits the 2nd task by clearing all existing tags.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="locating-tasks-by-name-code-find-code"><a class="link" href="#locating-tasks-by-name-code-find-code">3.5. Locating tasks by name: <code>find</code></a></h3>
+<h3 id="locating-contacts-by-address-code-findaddress-code"><a class="link" href="#locating-contacts-by-address-code-findaddress-code">3.5. Locating contacts by address: <code>findaddress</code></a></h3>
+<div class="paragraph">
+<p>Finds contacts whose address or body contain any of the given keywords.<br>
+Format: <code>findaddress KEYWORD [MORE_KEYWORDS]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The search is case insensitive. e.g <code>college</code> will match <code>College</code></p>
+</li>
+<li>
+<p>The order of the keywords does not matter. e.g. <code>Ave College</code> will match <code>College Ave</code></p>
+</li>
+<li>
+<p>Only the address and body is searched.</p>
+</li>
+<li>
+<p>Only full words will be matched e.g. <code>Colle</code> will not match <code>College</code></p>
+</li>
+<li>
+<p>Contacts matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>College Tampines</code> will return all contacts with address containing any of the keywords college or tampines</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findaddress College</code><br>
+Returns <code>college</code> and <code>College ave e</code></p>
+</li>
+<li>
+<p><code>findaddress college lorong tampines</code><br>
+Returns any contacts having an address or body that contains <code>college</code>, <code>lorong</code>, or <code>tampines</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="locating-contacts-by-name-code-findname-code"><a class="link" href="#locating-contacts-by-name-code-findname-code">3.6. Locating contacts by name: <code>findname</code></a></h3>
+<div class="paragraph">
+<p>Finds contacts whose name or body contain any of the given keywords.<br>
+Format: <code>findname KEYWORD [MORE_KEYWORDS]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The search is case insensitive. e.g <code>mario</code> will match <code>Mario</code></p>
+</li>
+<li>
+<p>The order of the keywords does not matter. e.g. <code>Gonzalez Mario</code> will match <code>Mario Gonzalez</code></p>
+</li>
+<li>
+<p>Only the name and body is searched.</p>
+</li>
+<li>
+<p>Only full words will be matched e.g. <code>Gonza</code> will not match <code>Gonzalez</code></p>
+</li>
+<li>
+<p>Contacts matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>Hans Bo</code> will return <code>Hans Gruber</code>, <code>Bo Yang</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findaddress Mario</code><br>
+Returns <code>mario</code> and <code>Mario Gonzalez</code></p>
+</li>
+<li>
+<p><code>findaddress mario alex david</code><br>
+Returns any contacts having names or body that contains <code>mario</code>, <code>alex</code>, or <code>david</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="locating-contacts-by-phone-code-findphone-code"><a class="link" href="#locating-contacts-by-phone-code-findphone-code">3.7. Locating contacts by phone: <code>findphone</code></a></h3>
+<div class="paragraph">
+<p>Finds contacts whose phone number or body contain any of the given keywords.<br>
+Format: <code>findname KEYWORD [MORE_KEYWORDS]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Only the phone number and body is searched.</p>
+</li>
+<li>
+<p>Only full phone numbers will be matched e.g. <code>98835</code> will not match <code>98835761</code></p>
+</li>
+<li>
+<p>Contacts matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. `98835761 87438807 ` will return the contacts with phone number 98835761 or 87438807.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findaddress 98835761</code><br>
+Returns <code>98835761</code> and the contact with that phone number</p>
+</li>
+<li>
+<p><code>findaddress 98835761 87438807</code><br>
+Returns any contacts having phone number or body that contains <code>98835761</code>, or <code>87438807</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="locating-tasks-by-name-code-find-code"><a class="link" href="#locating-tasks-by-name-code-find-code">3.8. Locating tasks by name: <code>find</code></a></h3>
 <div class="paragraph">
 <p>Finds tasks whose names or body contain any of the given keywords.<br>
 Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
@@ -260,7 +400,7 @@ Returns any task having names or body <code>concert</code>, <code>meeting</code>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-task-code-delete-code"><a class="link" href="#deleting-a-task-code-delete-code">3.6. Deleting a task : <code>delete</code></a></h3>
+<h3 id="deleting-a-task-code-delete-code"><a class="link" href="#deleting-a-task-code-delete-code">3.9. Deleting a task : <code>delete</code></a></h3>
 <div class="paragraph">
 <p>Deletes the specified task from the schedule planner.<br>
 Format: <code>delete INDEX</code></p>
@@ -301,7 +441,7 @@ Deletes the 1st task in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.7. Listing entered commands : <code>history</code></a></h3>
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.10. Listing entered commands : <code>history</code></a></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have entered in reverse chronological order.<br>
 Format: <code>history</code></p>
@@ -322,7 +462,7 @@ Format: <code>history</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.8. Undoing previous command : <code>undo</code></a></h3>
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.11. Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
 <p>Restores the schedule planner to the state before the previous <em>undoable</em> command was executed.<br>
 Format: <code>undo</code></p>
@@ -367,7 +507,7 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 </div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.9. Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.12. Redoing the previously undone command : <code>redo</code></a></h3>
 <div class="paragraph">
 <p>Reverses the most recent <code>undo</code> command.<br>
 Format: <code>redo</code></p>
@@ -399,54 +539,343 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.10. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.13. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
 <p>Clears all entries from the schedule planner.<br>
 Format: <code>clear</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.11. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.14. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.12. Saving the data</a></h3>
+<h3 id="adding-an-expense-code-addexpense-code"><a class="link" href="#adding-an-expense-code-addexpense-code">3.15. Adding an expense: <code>addExpense</code></a></h3>
+<div class="paragraph">
+<p>Adds an expense to the expense book<br>
+Format: <code>addExpense c/CATEGORY v/VALUE d/DATE [t/TAG]&#8230;&#8203;</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+An expense can have any number of tags (including 0)
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addExpense c/taobao v/1111.11 d/11/11/2018</code></p>
+</li>
+<li>
+<p><code>addExpense c/Lunch v/6.66 d/10/10/2018 t/nomorecaipng t/fishtooexpensive</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="editing-an-expense-code-editexpense-code"><a class="link" href="#editing-an-expense-code-editexpense-code">3.16. Editing an expense : <code>editExpense</code></a></h3>
+<div class="paragraph">
+<p>Edits an existing expense in the Expense book.<br>
+Format: <code>edit INDEX [c/CATEGORY] [v/VALUE] [d/DATE] [t/TAG]&#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Edits the expense at the specified <code>INDEX</code>. The index refers to the index number shown in the displayed expense list. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>At least one of the optional fields must be provided.</p>
+</li>
+<li>
+<p>Existing values will be updated to the input values.</p>
+</li>
+<li>
+<p>When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.</p>
+</li>
+<li>
+<p>You can remove all the expense&#8217;s tags by typing <code>t/</code> without specifying any tags after it.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>`editExpense 1 v/998.00<br>
+Edits the value of expense of the 1st expense</p>
+</li>
+<li>
+<p><code>editExpense 2 c/food t/lunch</code><br>
+Edits the category of the 2nd person to be <code>food</code>, remove the existing tags and add new tag.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-an-expense-code-deleteexpense-code"><a class="link" href="#deleting-an-expense-code-deleteexpense-code">3.17. Deleting an expense : <code>deleteExpense</code></a></h3>
+<div class="paragraph">
+<p>Deletes the specified expense from the expense book.<br>
+Format: <code>deleteExpense INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes the expense at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed expense list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>delete 2</code><br>
+Deletes the 2nd expense in the expense book.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="undoing-previous-command-code-undoexpense-code"><a class="link" href="#undoing-previous-command-code-undoexpense-code">3.18. Undoing previous command : <code>undoExpense</code></a></h3>
+<div class="paragraph">
+<p>Restores the expense book to the state before the previous <em>undoable</em> command was executed.<br>
+Format: <code>undoExpense</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Undoable commands: those commands that modify the expense book&#8217;s content (<code>addExpense</code>, <code>deleteExpense</code>, <code>editExpense</code> and <code>clearExpense</code>).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>deleteExpense 1</code><br>
+<code>undoExpense</code> (reverses the <code>deleteExpense 1</code> command)<br></p>
+</li>
+<li>
+<p><code>expenseTrend</code><br>
+<code>undoExpense</code><br>
+The <code>undoExpense</code> command fails as there are no undoable commands executed previously.</p>
+</li>
+<li>
+<p><code>deleteExpense 1</code><br>
+<code>clearExpense</code><br>
+<code>undoExpense</code> (reverses the <code>clearExpense</code> command)<br>
+<code>undoExpense</code> (reverses the <code>deleteExpense 1</code> command)<br></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="redoing-the-previously-undone-command-code-redoexpense-code"><a class="link" href="#redoing-the-previously-undone-command-code-redoexpense-code">3.19. Redoing the previously undone command : <code>redoExpense</code></a></h3>
+<div class="paragraph">
+<p>Reverses the most recent <code>undoExpense</code> command.<br>
+Format: <code>redoExpense</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>deleteExpense 1</code><br>
+<code>undoExpense</code> (reverses the <code>deleteExpense 1</code> command)<br>
+<code>redoExpense</code> (reapplies the <code>deleteExpense 1</code> command)<br></p>
+</li>
+<li>
+<p><code>deleteExpense 1</code><br>
+<code>redoExpense</code><br>
+The <code>redoExpense</code> command fails as there are no <code>undoExpense</code> commands executed previously.</p>
+</li>
+<li>
+<p><code>deleteExpense 1</code><br>
+<code>clearExpense</code><br>
+<code>undoExpense</code> (reverses the <code>clearExpense</code> command)<br>
+<code>undoExpense</code> (reverses the <code>deleteExpense 1</code> command)<br>
+<code>redoExpense</code> (reapplies the <code>deleteExpense 1</code> command)<br>
+<code>redoExpense</code> (reapplies the <code>clearExpense</code> command)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="clearing-all-expense-entries-code-clearexpense-code"><a class="link" href="#clearing-all-expense-entries-code-clearexpense-code">3.20. Clearing all expense entries : <code>clearExpense</code></a></h3>
+<div class="paragraph">
+<p>Clears all entries from the expense book.<br>
+Format: `clearExpense</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="displaying-expense-trend-code-expensetrend-code"><a class="link" href="#displaying-expense-trend-code-expensetrend-code">3.21. Displaying expense trend : <code>expenseTrend</code></a></h3>
+<div class="paragraph">
+<p>Displays a bar chart of the monthly expense value occurred the past 6 months in a new window<br>
+Format: <code>expenseTrend</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="displaying-monthly-expense-code-monthlyexpense-code"><a class="link" href="#displaying-monthly-expense-code-monthlyexpense-code">3.22. Displaying monthly expense : <code>monthlyExpense</code></a></h3>
+<div class="paragraph">
+<p>Displays a pie chart of the expense value for each category occurred in the selected month in a new window<br>
+format: <code>monthlyExpense MM/YYYY</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Displays the monthly expense for the specified <code>MM/YYYY</code>.</p>
+</li>
+<li>
+<p>The month <strong>must be a valid month and in MM/YYYY format</strong> 01/0001, 10/2018 &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>monthlyExpense 11/2018</code><br>
+Displays the monthly expense data for November 2018 in a new window</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.23. Saving the data</a></h3>
 <div class="paragraph">
 <p>Schedule planner data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="sending-notification"><a class="link" href="#sending-notification">3.13. Sending notification</a></h3>
+<h3 id="sending-notification"><a class="link" href="#sending-notification">3.24. Sending notification</a></h3>
 <div class="paragraph">
 <p>Alert user when a deadline is due</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="local-backup-code-coming-in-v1-2-code"><a class="link" href="#local-backup-code-coming-in-v1-2-code">3.14. Local backup <code>Coming in [v1.2]</code></a></h3>
+<h3 id="backup-data-code-backup-code"><a class="link" href="#backup-data-code-backup-code">3.25. Backup data : <code>backup</code></a></h3>
 <div class="paragraph">
-<p>Allow user to backup data <em>locally</em> by calling <code>backup local &lt;path to backup too&gt;</code><br>
-Where the backup folder is a folder the user has write permissions to.</p>
+<p>Allow user to backup data <em>locally</em> or to online services.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>backup | [GITHUB ACCESS_TOKEN]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>For GitHub online backup, a personal access token must be provided in <code>ACCESS_TOKEN</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>backup</code><br>
+Creates a local backup to the backup paths in <code>preferences.json</code>.</p>
+</li>
+<li>
+<p><code>backup github ACCESS_TOKEN_HERE</code><br>
+Creates an online backup to GitHub Gists using the provided personal access token.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="online-backup-code-coming-in-v1-3-code"><a class="link" href="#online-backup-code-coming-in-v1-3-code">3.15. Online backup <code>Coming in [v1.3]</code></a></h3>
+<h3 id="restore-data-code-restore-code"><a class="link" href="#restore-data-code-restore-code">3.26. Restore data : <code>restore</code></a></h3>
 <div class="paragraph">
-<p>Allow user to backup data to online services like GitHub gists or Google Drive by calling <code>backup online &lt;service&gt;</code><br>
-Where the service to backup data to has already been setup beforehand</p>
+<p>Allow user to restore data backups <em>locally</em> or from online services.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>restore | [GITHUB ACCESS_TOKEN]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>For GitHub online restore, a personal access token must be provided in <code>ACCESS_TOKEN</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>restore</code><br>
+Restores Student Planner data using local backups in backup paths inside <code>preferences.json</code>.</p>
+</li>
+<li>
+<p><code>restore github ACCESS_TOKEN_HERE</code><br>
+Restores Student Planner data on GitHub Gists using the provided personal access token.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="setup-or-restore-backup-data"><a class="link" href="#setup-or-restore-backup-data">3.16. Setup or restore backup data</a></h3>
+<h3 id="configure-backup-and-restore-settings-code-coming-in-v2-0-code"><a class="link" href="#configure-backup-and-restore-settings-code-coming-in-v2-0-code">3.27. Configure backup and restore settings <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
-<p>Allow user to setup backup settings (setup cloud services like GitHub gists or Google Drive, backup location) by calling <code>backup doctor</code></p>
+<p>Allow user to configure backup settings (configure and save cloud services authentication tokens like GitHub gists or Google Drive, backup location) by calling <code>backup doctor</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.17. Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.28. Encrypting data files <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p>Allow user to enable encryption by calling <code>encrypt p/PASSWORD</code><br>
 Application will prompt for decryption password if encryption is enabled</p>
@@ -459,7 +888,8 @@ Application will prompt for decryption password if encryption is enabled</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
-<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous schedule planner folder.</p>
+<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous schedule planner folder.
+Alternatively you can perform a backup to a supported online service like GitHub and restore form another computer after changing the relevant gist ids in your preferences.json file</p>
 </div>
 </div>
 </div>
@@ -503,7 +933,47 @@ e.g.<code>select 2</code></p>
 <li>
 <p><strong>Redo</strong> : <code>redo</code></p>
 </li>
+<li>
+<p><strong>Backup</strong> : <code>backup | [GITHUB ACCESS_TOKEN]</code>
+e.g. <code>backup GITHUB MY_ACCESS_TOKEN</code></p>
+</li>
+<li>
+<p><strong>Restore</strong> : <code>restore | [GITHUB ACCESS_TOKEN]</code>
+e.g. <code>restore GITHUB MY_ACCESS_TOKEN</code></p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>AddExpense</strong> : <code>addExpense c/CATEGORY v/VALUE d/DATE [t/TAG]&#8230;&#8203;</code><br>
+e.g. <code>addExpense c/Food v/11.11 d/11/11/2018 t/KFC t/lunch t/fat</code></p>
+</li>
+<li>
+<p><strong>ClearExpense</strong> : <code>clearExpense</code></p>
+</li>
+<li>
+<p><strong>DeleteExpense</strong> : <code>deleteExpense INDEX</code><br>
+e.g. <code>deleteExpense 3</code></p>
+</li>
+<li>
+<p><strong>EditExpense</strong> : <code>editExpense INDEX [c/CATEGORY] [v/VALUE] [d/DATE] [t/TAG]&#8230;&#8203;</code><br>
+e.g. <code>editExpense 2 c/Travel v/998.00</code></p>
+</li>
+<li>
+<p><strong>UndoExpense</strong> : <code>undoExpense</code></p>
+</li>
+<li>
+<p><strong>RedoExpense</strong> : <code>redoExpense</code></p>
+</li>
+<li>
+<p><strong>ExpenseTrend</strong> : <code>expenseTrend</code></p>
+</li>
+<li>
+<p><strong>MonthlyExpense</strong> : <code>monthlyExpense MM/YYYY</code><br>
+e.g. <code>monthlyExpense 11/2018</code></p>
+</li>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-16 16:30:43 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-30 07:43:24 UTC</div></div></div></body></html>

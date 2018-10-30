@@ -30,9 +30,12 @@
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
-<li><a href="#proposed-data-encryption">3.2. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.3. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.4. Configuration</a></li>
+<li><a href="#tasks-crud-feature">3.2. Tasks (CRUD) feature</a></li>
+<li><a href="#backup-feature">3.3. Backup Feature</a></li>
+<li><a href="#proposed-data-encryption">3.4. [Proposed] Data Encryption</a></li>
+<li><a href="#logging">3.5. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.6. Configuration</a></li>
+<li><a href="#expense-tracker-feature">3.7. Expense tracker feature</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -522,10 +525,26 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p>stores a <code>UserPref</code> object that represents the user&#8217;s preferences.</p>
 </li>
 <li>
-<p>stores the Address Book data.</p>
+<p>stores the Student Planner data consisting of</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Address Book</p>
 </li>
 <li>
-<p>exposes an unmodifiable <code>ObservableList&lt;Person&gt;</code> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.</p>
+<p>Expense Book</p>
+</li>
+<li>
+<p>Task Book</p>
+</li>
+<li>
+<p>Event Book</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>exposes unmodifiable <code>ObservableList&lt;T&gt;</code> where <code>T</code> is of type <code>Person</code>, <code>Expense</code>, <code>Event</code>, or <code>Task</code> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.</p>
 </li>
 <li>
 <p>does not depend on any of the other three components.</p>
@@ -567,9 +586,53 @@ As a more OOP model, we can store a <code>Tag</code> list in <code>Address Book<
 <p>can save <code>UserPref</code> objects in json format and read it back.</p>
 </li>
 <li>
-<p>can save the Address Book data in xml format and read it back.</p>
+<p>can save the Student Planner data in xml format and read it back.</p>
 </li>
 </ul>
+</div>
+<div class="sect3">
+<h4 id="design-consideration"><a class="link" href="#design-consideration">2.5.1. Design Consideration</a></h4>
+<div class="paragraph">
+<p>The Student Planner data consists of Addresses, Events, Expenses and Task data</p>
+</div>
+<div class="sect4">
+<h5 id="aspect-how-data-is-being-stored"><a class="link" href="#aspect-how-data-is-being-stored">Aspect: How data is being stored</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1:</strong> Saves the entire student planner data as one gigantic xml file.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement.</p>
+</li>
+<li>
+<p>Cons: May have performance issues in terms of memory usage.
+Negatively impacts requirements of allowing user to still be able to manually modify data as it may be
+ difficult to navigate and modify a single huge file.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2: (current choice)</strong> Separation into individual storage files.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Allows for easy modification of data by end user as each file can be easily modified even if it is
+large as there is no tight coupling with other files. Also allows for faster backup of data online as we can utilize
+ multithreading to upload all the xml files at the same time instead of one large file.</p>
+</li>
+<li>
+<p>Cons: We must ensure that the implementation of each individual storage are correct, especially
+for files which when converted to their respectively objects may have some dependencies from the other features.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -789,20 +852,231 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.2. [Proposed] Data Encryption</a></h3>
+<h3 id="tasks-crud-feature"><a class="link" href="#tasks-crud-feature">3.2. Tasks (CRUD) feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.2.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>The tasks' CRUD mechanism is facilitated by <code>AddTaskCommand</code>,<code>listTaskCommand</code>,<code>findTaskCommand</code>,<code>UpdateTaskCommand</code>,<code>DeleteTaskCommand</code>. It extends <code>Command</code> and implement the following operation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Command#AddTaskCommand()</code>&#8201;&#8212;&#8201;Create a new task to Student Planner</p>
+</li>
+<li>
+<p><code>Command#ListTaskCommand()</code>,<code>Command#FindTaskCommand()</code>&#8201;&#8212;&#8201;View/ search existing tasks</p>
+</li>
+<li>
+<p><code>Command#UpdateTaskCommand()</code>&#8201;&#8212;&#8201;Update existing tasks from history</p>
+</li>
+<li>
+<p><code>Command#DeleteTaskCommand()</code>&#8201;&#8212;&#8201;Remove existing tasks from history</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These operations are exposed in the <code>Model</code> interface as <code>Model#hasTask()</code>,<code>Model#addTask()</code>,<code>Model#listTask()</code>,<code>Model#updateTask()</code> and <code>Model#deleteTask()</code> respectively.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the CRUD mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user launches the application for the first time. The Student Planner will be initialized with the initial task planner state.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The user executes <code>add t/submission &#8230;&#8203;</code> command to add a new submission task to the student planner. The <code>add</code> command calls <code>Model#addTask()</code> which returns a task to be shown in the task list.</p>
+</div>
+<div class="paragraph">
+<p>Step 3. The user executes  <code>find &#8230;&#8203;</code> command to search any existing task. The <code>find</code> command calls <code>Model#findTask()</code> and it does not modify the student planner, the studentPlannerStateList remains unchanged.</p>
+</div>
+<div class="paragraph">
+<p>Step 4. The user then decides to executes <code>update &#8230;&#8203;</code> command to update an existing task. The <code>update</code> command calls <code>Model#updateTask()</code>, causing a modified task to be saved.</p>
+</div>
+<div class="paragraph">
+<p>Step 5. The user executes <code>list</code> command to view the existing task list, which calls <code>Model#listTask()</code>. The <code>list</code> command does not modify the student planner, the studentPlannerStateList remains unchanged.</p>
+</div>
+<div class="paragraph">
+<p>Step 6. The user now decides that the task added was a mistake, and decides to remove that task by executing the <code>delete 6</code> command to delete the 6th task in the task list of the student planner. The <code>delete</code> command will call <code>Model#deleteTask()</code>, causing the modified state of the student planner after the <code>delete 5</code> command executes to be saved in the studentPlannerStateList.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="backup-feature"><a class="link" href="#backup-feature">3.3. Backup Feature</a></h3>
+<div class="sect3">
+<h4 id="backups-types"><a class="link" href="#backups-types">3.3.1. Backups Types</a></h4>
+<div class="paragraph">
+<p>The application supports both local and online backups</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="backup-implementation"><a class="link" href="#backup-implementation">3.3.2. Backup Implementation</a></h4>
+<div class="paragraph">
+<p>A <code>OnlineStorage</code> interface must be implemented by all forms of Online backup services. This allows developers to easily add and extend the list of supported backup services by implementing a common set of methods.
+The current minimum set of methods that must be implemented are</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>OnlineStorage#saveContentToStorage</code>.</p>
+</li>
+<li>
+<p><code>OnlineStorage#readContentFromStorage</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For local backups, the book specific <code>{Book}Storage</code> interface adapted from <code>AddressBookStorage</code> are implemented and used.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.3.3. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-is-the-backup-command-initiated"><a class="link" href="#aspect-how-is-the-backup-command-initiated">Aspect: How is the backup command initiated</a></h5>
+<div class="paragraph">
+<p>The backup mechanism is unique from the other command implementation as the execution of a <code>BackupCommand</code> uses an event driven approach to activate a backup request instead of going through the model manager. Backup command is executed this way
+because of the following reason.</p>
+</div>
+<div class="paragraph">
+<p>Backup requires the current in memory book data inside the <code>Model</code>, however the <code>execute</code> function is actually passed our <code>model</code> containing the required books data. We can raise a backup event directly with the books data provided in the model we have access too</p>
+</div>
+<div class="paragraph">
+<p>The raised event is observed and handled by the storage manager which performs the backup (either local or through supported online services) using the books from the <code>model</code> passed in through the <code>OnlineBackupEvent</code> or <code>LocalBackupEvent</code></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-implementation-of-performing-backup"><a class="link" href="#aspect-implementation-of-performing-backup">Aspect: Implementation of performing backup</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Performing backup of data files using worker threads.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Solves the age old problem of a graphical application appearing to freeze which can away end user experience as when the main JavaFX thread is blocked as is the case in the inherited default AB4 codebase</p>
+</li>
+<li>
+<p>Cons: Difficult to ensure that threads have no unsafe threads operations especially since we are dealing with file storage. Cross thread exception is difficult to handle.
+Difficult to ensure that no two threads attempt to access the same resource.
+Inter-thread synchronisation and cross thread exception handling is difficult too.
+we have to implement a way to check when all threads are complete and signal the main ui thread to provide user with a proper success or failure notification</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Utilise the existing implementation of blocking the main GUI thread whenever a file storage operation is being performed</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: No work needed in implementation.</p>
+</li>
+<li>
+<p>Cons: Notable freezes in Student Planner application even for small files. User cannot perform any other operation while backup is being performed</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect5">
+<h6 id="further-justification"><a class="link" href="#further-justification">Further justification</a></h6>
+<div class="paragraph">
+<p>Concurrency is not a topic commonly taught in beginning software engineering classes. The class that this application was created for is no exception. The common reason for this is that concurrency and multithreading
+are two slightly advanced topics that students will not usually touch in beginning modules. However, one can consider this to be a paradox as most beginner software engineering modules will involve the creation of an
+application with graphical output which usually consists of long running operations which should not be handled or performed on the main GUI thread. This is the best time to teach students about using worker or
+ background threads to prevent main GUI thread from blocking operations such as file I/O, it is also the most succinct demonstration of the need for concurrency.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="command-flow"><a class="link" href="#command-flow">3.3.4. Command Flow</a></h4>
+<div class="imageblock">
+<div class="content">
+<img src="images/backup-example.png" alt="backup example">
+</div>
+</div>
+<div class="paragraph">
+<p>When a user enters a backup command to perform data backup. <code>BackupCommand#execute</code> raises a <code>LocalBackupEvent</code> or a <code>OnlineBackupEvent</code>.
+The <code>StorageManager</code> subscribes to the events and will perform the backup of the various books such as <code>ReadOnlyAddressBook</code>, <code>ReadOnlyExpenseBook</code> etc provided in the event payload. This allows us to separate
+backup concerns from the Model as explain above earlier, in a similar manner, the storage component is also decoupled from the model component with regards to backup operations.</p>
+</div>
+<div class="paragraph">
+<p>For example in the case of saving backup data to GitHub. We have the flow of steps.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>After a correct backup command is entered by the user, <code>BackupCommand#execute</code> raises a <code>OnlineBackupEvent</code> with the payload consisting of <code>OnlineStorage.Type</code> , the various book models, and a authentication token.</p>
+</li>
+<li>
+<p><code>StorageManager#handleOnlineBackupEvent</code> calls <code>backupOnline</code> which starts an <code>ExecutorService</code> to perform data backup to Github storage with worker tasks from <code>getOnlineBackupTask</code></p>
+<div class="paragraph">
+<p>To prevent the main JavaFX UI thread from freezing during the entire duration of the online backup, worker threads are used to performs the online backup without blocking the main thread.</p>
+</div>
+<div class="paragraph">
+<p>Tasks created using <code>javafx.concurrent.tasks</code> allows us to use task handlers which run in the context of the main JavaFX application thread.</p>
+</div>
+<div class="paragraph">
+<p>This allows us to capture any thrown exceptions in the worker thread and show to the user in the form of a error popup.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>backupTask.setOnFailed(event -&gt; {
+    raise(new DataSavingExceptionEvent((Exception) backupTask.getException()));
+});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This multi-threaded approach allows us to perform long running tasks on worker threads while still waiting for all backup threads
+to complete before showing success notification for the user.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>backupTask.setOnSucceeded(event -&gt; {
+    raise(new NewResultAvailableEvent(backupTask.getMessage()));
+    raise((OnlineBackupSuccessResultEvent) backupTask.getValue());
+});</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>The specific online service that implements the <code>OnlineStorage</code> interface will be called.
+In this example, <code>GithubStorage#saveContentToStorage</code> is called for the respective data books which utilises a third party Github API Library
+ to create and save gists to GitHub.</p>
+</li>
+<li>
+<p>When each backup task for each book data is completed, a <code>OnlineBackupSuccessResultEvent</code> is raised by the <code>setOnSucceeded</code> task handler.</p>
+</li>
+<li>
+<p><code>Model#handleOnlineBackupSuccessResultEvent</code> receives the event and updates the <code>UserPrefs</code> model based on the gist id returned from the successful backup</p>
+</li>
+<li>
+<p>A <code>UserPrefsChangedEvent</code> is fired which is handled by <code>Storage</code> which saves the updated <code>UserPrefs</code> to storage.</p>
+</li>
+<li>
+<p>A <code>NewNotificationAvailableEvent</code> is also fired. This event is handled by the <code>UiManager</code> which calls <code>showNotification</code> that creates a new notification and shows
+it to the user.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.4. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.3. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.5. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.4, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.6, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -833,9 +1107,58 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.4. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.6. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="expense-tracker-feature"><a class="link" href="#expense-tracker-feature">3.7. Expense tracker feature</a></h3>
+<div class="paragraph">
+<p>The implementation of expense feature is similar to the Address Book, it has similar basic functions such as: <code>addExpense</code> <code>clearExpense</code> <code>deleteExpense</code> <code>editExpense</code> <code>redoExpense</code> <code>undoExpense</code>.
+In addition, <code>expenseTrend</code> and <code>monthlyExpense</code> functions were implemented to assist the user in analysing his/her spending habit.</p>
+</div>
+<div class="sect3">
+<h4 id="expense-trend"><a class="link" href="#expense-trend">3.7.1. Expense trend</a></h4>
+<div class="paragraph">
+<p>This function displays the total expense value for the past 6 months in a new window.
+This function is facilitated by <code>ExpenseTrendCommand</code>, it extends the <code>Command</code>.</p>
+</div>
+<div class="paragraph">
+<p>When user executes <code>expenseTrend</code> command, the command calls <code>Model#getFilteredExpenseList()</code> to obtain the list of expense, it then creates a <code>TreeMap</code> containing the expense trend data by calling <code>getExpenseTrendData()</code>.</p>
+</div>
+<div class="paragraph">
+<p>The list of expense will be filtered by the month of expense occurred in the <code>getExpenseTrendData()</code>, <code>java.time.YearMonth</code> is imported to obtain the current month and <code>TreeMap</code> is used to ensure that the months are sorted in ascending order.</p>
+</div>
+<div class="paragraph">
+<p>The command then calls <code>EventsCenter#post(new DisplayExpenseTrendEvent(expenseTrendData))</code> to create an display expense trend event with the expense trend data, and pass the event to the EventCenter.</p>
+</div>
+<div class="paragraph">
+<p><code>MainWindow</code> will subscribe and handle the event, the expense trend data is passed to <code>ExpenseTrendWindow</code> by calling <code>ExpenseTrendWindow#setExpenseTrendData()</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>ExpenseTrendWindow</code> creates a bar chart with the data and open a new window to display the bar chart.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="monthly-expense"><a class="link" href="#monthly-expense">3.7.2. Monthly expense</a></h4>
+<div class="paragraph">
+<p>This function displays the expense value of each category for the selected month in a new window.
+This function is facilitated by <code>MonthlyExpenseCommand</code>, it extends the <code>Command</code>.</p>
+</div>
+<div class="paragraph">
+<p>When user executes <code>monthlyExpense</code> command, the <code>MonthlyExpenseCommandParser</code> will check if the parameter entered are in correct format and is a valid month. An error message is displayed if the parameter is incorrect, else a <code>MonthlyExpenseCommand</code> with the selected month will be instantiated.
+the command then calls <code>Model#getFilteredExpenseList()</code> to obtain the list of expense, it also creates a <code>HashMap</code> containing the monthly expense data by calling <code>getMonthlyData()</code>.</p>
+</div>
+<div class="paragraph">
+<p>The list of expense will be filtered by the selected month in the <code>getMonthlyExpenseData()</code>, <code>HashMap</code> is used to ensure that to associate the expense value and its category.</p>
+</div>
+<div class="paragraph">
+<p>The command then calls <code>EventsCenter#post(new DisplayMonthlyExpenseEvent(monthlyData))</code> to create an display monthly expense event with the monthly expense data, and pass the event to the EventCenter.</p>
+</div>
+<div class="paragraph">
+<p>The rest are similar to the Expense Trend but the data were represented in a pie chart instead of a bar chart.</p>
+</div>
 </div>
 </div>
 </div>
@@ -2020,6 +2343,18 @@ for <code>RemarkCommandParser</code>.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">list the tasks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">view all the tasks avaiable</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">update the task</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">change the task information where necessary</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">delete a task</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">remove entries that I no longer need</p></td>
 </tr>
@@ -2030,7 +2365,7 @@ for <code>RemarkCommandParser</code>.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">locate task/s without having to go through the entire list</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">find a task by details</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">locate task/s without having to go through the details of the entire list of tasks</p></td>
@@ -2042,7 +2377,7 @@ for <code>RemarkCommandParser</code>.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">locate upcoming due tasks easily</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user with many tasks in the address book</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">sort tasks by priority</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">locate important tasks easily</p></td>
@@ -2156,7 +2491,7 @@ Use case ends.</p>
 <p>2b1. StudentPlanner informs user about unsuccessful adding of task.</p>
 </li>
 <li>
-<p>2b1. StudentPlanner <a href="#_use_case_app_usage_uc6">shows application usage (UC6)</a></p>
+<p>2b2. StudentPlanner <a href="#_use_case_app_usage_uc6">shows application usage (UC6)</a></p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -2393,53 +2728,6 @@ Use case ends.</p>
 </li>
 </ul>
 </div>
-<h3 id="use-case-local-tasks-backup-uc8-2" class="discrete">Use case: Local tasks backup (UC8)</h3>
-<div class="paragraph">
-<p><strong>Prerequisite</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>At least one tasks exists</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>MSS</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests to backup all data to another local folder</p>
-</li>
-<li>
-<p>StudentPlanner backups current data to specified folder</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Extensions</strong></p>
-</div>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>2a. Folder provided cannot be written to</p>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>2a1. StudentPlanner informs user that folder cannot be used for backup</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
 <h3 id="use-case-online-tasks-backup-uc9" class="discrete">Use case: Online tasks backup (UC9)</h3>
 <div class="paragraph">
 <p><strong>Prerequisite</strong></p>
@@ -2491,6 +2779,143 @@ Use case ends.</p>
 </li>
 <li>
 <p>2b2. StudentPlanner shows help for online backup.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-add-expense-uc11" class="discrete">Use case: Add Expense(UC11)</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to add an new expense with details</p>
+</li>
+<li>
+<p>StudentPlanner adds new expense with given details</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a. Insufficient or Invalid details provided.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a1. StudentPlanner informs user about unsuccessful adding of expense</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-add-event-uc10" class="discrete">Use case: Add Event (UC10)</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to add an event</p>
+</li>
+<li>
+<p>StudentPlanner adds new event with given details</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>2a. A similar event exists</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a1. StudentPlanner prompts user that a similar event exists. Event is not added.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>2b. Insufficient or Invalid details provided.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2b1. StudentPlanner shows required command format to user. Event is not added.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-add-event-uc10-2" class="discrete">Use case: Add Event (UC10)</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to add an event</p>
+</li>
+<li>
+<p>StudentPlanner adds new event with given details</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>2a. A similar event exists</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a1. StudentPlanner prompts user that a similar event exists. Event is not added.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>2b. Insufficient or Invalid details provided.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2b1. StudentPlanner shows required command format to user. Event is not added.</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -2705,4 +3130,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-16 16:30:43 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-30 07:43:24 UTC</div></div></div></body></html>
