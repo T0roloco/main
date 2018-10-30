@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -20,8 +19,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyExpenseBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.PersonBuilder;
@@ -103,6 +104,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void resetData(ReadOnlyExpenseBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyAddressBook getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
@@ -163,12 +169,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void backupAddressBook() {
-
+        public void restoreAddressBook(ReadOnlyAddressBook restoredAddressBook) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void backupAddressBook(Path backupPath) {
+        public void restoreExpenseBook(ReadOnlyExpenseBook restoredExpenseBook) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -178,8 +184,33 @@ public class AddCommandTest {
         }
 
         @Override
+        public void deleteTask(Task target) {
+
+        }
+
+        @Override
         public void addTask(Task person) {
 
+        }
+
+        @Override
+        public void updateTask(Task target, Task editedPerson) {
+
+        }
+
+        @Override
+        public ObservableList<Task> getFilteredTaskList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredTaskList(Predicate<Task> predicate) {
+
+        }
+
+        @Override
+        public ObservableList<Event> getFilteredEventList() {
+            return null;
         }
 
         @Override
@@ -189,6 +220,68 @@ public class AddCommandTest {
 
         @Override
         public boolean hasEvent(Event event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteEvent(Event target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //======== Expense ============================================================================================
+
+        @Override
+        public ReadOnlyExpenseBook getExpenseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteExpense(Expense target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addExpense(Expense expense) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateExpense(Expense target, Expense editedExpense) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Expense> getFilteredExpenseList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredExpenseList(Predicate<Expense> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoExpenseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoExpenseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoExpenseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoExpenseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitExpenseBook() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -241,3 +334,4 @@ public class AddCommandTest {
     }
 
 }
+

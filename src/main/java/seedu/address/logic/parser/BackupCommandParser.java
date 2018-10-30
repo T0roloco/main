@@ -13,7 +13,7 @@ import seedu.address.storage.OnlineStorage;
 
 //@@author QzSG
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new RestoreCommand object
  */
 public class BackupCommandParser implements Parser<BackupCommand> {
 
@@ -44,13 +44,14 @@ public class BackupCommandParser implements Parser<BackupCommand> {
      */
     private BackupCommand parseArguments(String args) throws ParseException {
         List<String> argumentList = Arrays.asList(args.split(" ", 0));
+        /* temp removal of custom backup location
         if (argumentList.size() == 1) {
             return new BackupCommand(ParserUtil.parsePath(argumentList.get(0)), true,
                     Optional.empty(), Optional.empty());
-        }
+        }*/
         if (argumentList.size() == 2 && argumentList.get(0).toLowerCase().equals("github")) {
             return new BackupCommand(Optional.empty(), false,
-                    Optional.ofNullable(OnlineStorage.OnlineStorageType.GITHUB),
+                    Optional.ofNullable(OnlineStorage.Type.GITHUB),
                     Optional.ofNullable(argumentList.get(1)));
         }
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BackupCommand.MESSAGE_USAGE));

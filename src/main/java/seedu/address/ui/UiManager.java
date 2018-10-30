@@ -1,6 +1,10 @@
 package seedu.address.ui;
 
+import java.net.MalformedURLException;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
+
+import org.controlsfx.control.Notifications;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -8,12 +12,17 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.storage.DataRestoreExceptionEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.ui.NewNotificationAvailableEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -33,9 +42,9 @@ public class UiManager extends ComponentManager implements Ui {
     public static final String FILE_OPS_BACKUP_SUCCESS_DIALOG_HEADER_MESSAGE = "Backup operation success";
     public static final String FILE_OPS_BACKUP_SUCCESS_DIALOG_CONTENT_MESSAGE = "Data backup to %s";
 
-    public static final String FILE_OPS_BACKUP_ERROR_DIALOG_STAGE_TITLE = "Backup Status";
-    public static final String FILE_OPS_BACKUP_ERROR_DIALOG_HEADER_MESSAGE = "Backup operation failed";
-    public static final String FILE_OPS_BACKUP_ERROR_DIALOG_CONTENT_MESSAGE = "Could not backup data to %s";
+    public static final String FILE_OPS_RESTORE_ERROR_DIALOG_STAGE_TITLE = "Backup Restore Error";
+    public static final String FILE_OPS_RESTORE_ERROR_DIALOG_HEADER_MESSAGE = "Restore operation failed";
+    public static final String FILE_OPS_RESTORE_ERROR_DIALOG_CONTENT_MESSAGE = "Could not restore data";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
@@ -124,5 +133,42 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         showFileOperationAlertAndWait(FILE_OPS_ERROR_DIALOG_HEADER_MESSAGE, FILE_OPS_ERROR_DIALOG_CONTENT_MESSAGE,
                 event.exception);
+    }
+
+    //@@author QzSG
+    @Subscribe
+    private void handleDataRestoreExceptionEvent(DataRestoreExceptionEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        showFileOperationAlertAndWait(FILE_OPS_RESTORE_ERROR_DIALOG_HEADER_MESSAGE,
+                FILE_OPS_RESTORE_ERROR_DIALOG_CONTENT_MESSAGE, event.exception);
+    }
+
+
+    /**
+     * Creates an shows a notification with the relevant details provided
+     * @param title Title of the notification
+     * @param message Notification message for the user
+     * @param duration Duration to show the notification for before it disappears
+     */
+    private void showNotification(String title, String message, Duration duration) {
+        try {
+            ImageView imageIcon = new ImageView(
+                    Paths.get("./src/main/resources/view/images/dialog-info.png").toUri().toURL().toExternalForm());
+            Notifications.create()
+                    .title(title)
+                    .text(message)
+                    .hideAfter(duration)
+                    .owner(mainWindow.getPrimaryStage())
+                    .graphic(imageIcon)
+                    .show();
+        } catch (MalformedURLException e) {
+            throw new IllegalStateException("This should always be valid");
+        }
+    }
+
+    @Subscribe
+    private void handleNewNotificationAvailableEvent(NewNotificationAvailableEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        Platform.runLater(() -> showNotification(event.title, event.message, event.duration));
     }
 }

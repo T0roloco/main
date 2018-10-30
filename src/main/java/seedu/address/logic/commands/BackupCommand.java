@@ -5,12 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import javafx.concurrent.Task;
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.storage.LocalBackupEvent;
 import seedu.address.commons.events.storage.OnlineBackupEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.storage.OnlineStorage;
 
 //@@author QzSG
@@ -23,25 +22,31 @@ public class BackupCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Backups student planner data to location specified (backups to default data path if not provided)\n"
-            + "Parameters: [github authToken] OR [PATH] (must be a writable path)\n"
-            + "Example: " + COMMAND_WORD + " data\\addressbook.bak OR\n"
+            + "Parameters: [github authToken]\n"
+            + "Example: " + COMMAND_WORD + "\n"
             + "Example: " + COMMAND_WORD + " github my_personal_access_token";
 
     public static final String MESSAGE_SUCCESS = "Initiating Backup to %s";
 
     private Optional<Path> backupPath;
     private boolean isLocal = true;
-    private OnlineStorage.OnlineStorageType target;
+    private OnlineStorage.Type target;
     private Optional<String> authToken;
 
     /**
      * Creates a BackupCommand to backup data to storage
      */
     public BackupCommand(Optional<Path> backupPath, boolean isLocal,
-                         Optional<OnlineStorage.OnlineStorageType> target, Optional<String> authToken) {
+                         Optional<OnlineStorage.Type> target, Optional<String> authToken) {
+        if (isLocal && authToken.isPresent()) {
+            throw new AssertionError("This should never happen. authToken should not exist if isLocal is true.");
+        }
+        if (!isLocal && !authToken.isPresent()) {
+            throw new AssertionError("This should never happen. authToken should always exist if isLocal is false.");
+        }
         this.backupPath = backupPath;
         this.isLocal = isLocal;
-        this.target = target.orElse(OnlineStorage.OnlineStorageType.GITHUB);
+        this.target = target.orElse(OnlineStorage.Type.GITHUB);
         this.authToken = authToken;
 
     }
@@ -50,18 +55,34 @@ public class BackupCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         if (isLocal) {
-            model.backupAddressBook(retrievePath(model));
-            return new CommandResult(String.format(MESSAGE_SUCCESS, retrievePath(model).toString()));
+
+            localBackupCommand(model);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, "local storage"));
+
         } else {
-            new Thread(onlineBackupTask(model.getAddressBook())).start();
+
+            onlineBackupCommand(model);
             return new CommandResult(String.format(MESSAGE_SUCCESS, "GitHub Gists"));
+
         }
 
     }
 
+    /*
+    @SuppressWarnings("unused")
     private Path retrievePath(Model model) {
         return backupPath.orElse(model.getUserPrefs().getAddressBookBackupFilePath());
     }
+
+    @SuppressWarnings("unused")
+    private Path retrieveAddressBookPath(Model model) {
+        return model.getUserPrefs().getAddressBookBackupFilePath();
+    }
+
+    @SuppressWarnings("unused")
+    private Path retrieveExpenseBookPath(Model model) {
+        return model.getUserPrefs().getExpenseBookBackupFilePath();
+    }*/
 
     @Override
     public boolean equals(Object other) {
@@ -71,18 +92,21 @@ public class BackupCommand extends Command {
     }
 
     /**
-     * Background task to prevent main ui thread from freezing during online backup
-     * @param addressBook
-     * @return Task that can be started to run online backup on non ui thread
+     * Raises event to indicate new online backup command
+     * @param model Memory model
      */
-    private Task onlineBackupTask(ReadOnlyAddressBook addressBook) {
-        Task task = new Task<Void>() {
-            @Override public Void call() {
-                EventsCenter.getInstance().post(new OnlineBackupEvent(target, addressBook,
-                        "AddressBook.bak", authToken));
-                return null;
-            }
-        };
-        return task;
+    private void onlineBackupCommand(Model model) {
+        EventsCenter.getInstance().post(
+                new OnlineBackupEvent(target, model.getAddressBook(), model.getExpenseBook(), authToken));
+    }
+
+    /**
+     * Raises event to indicate new online backup command
+     * @param model Memory model
+     */
+    private void localBackupCommand(Model model) {
+        EventsCenter.getInstance().post(new LocalBackupEvent(model.getAddressBook(),
+                model.getUserPrefs().getAddressBookBackupFilePath(),
+                model.getExpenseBook(), model.getUserPrefs().getExpenseBookBackupFilePath()));
     }
 }
