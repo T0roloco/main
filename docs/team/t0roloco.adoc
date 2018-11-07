@@ -5,7 +5,7 @@
 
 == Role: Developer
 
-Responsibilities: Development 
+Responsibilities: Development
 
 == PROJECT: Student Planner
 
