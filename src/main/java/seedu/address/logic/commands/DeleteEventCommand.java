@@ -1,3 +1,4 @@
+//@@author ian-tjahjono
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -44,7 +45,7 @@ public class DeleteEventCommand extends Command {
 
         Event eventToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteEvent(eventToDelete);
-        model.commitAddressBook();
+        model.commitEventBook();
         return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete));
     }
 

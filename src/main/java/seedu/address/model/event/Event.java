@@ -1,3 +1,4 @@
+//@@author ian-tjahjono
 package seedu.address.model.event;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -32,7 +33,7 @@ public class Event {
     }
 
     public EventName getEventName() {
-        return eventName;
+        return this.eventName;
     }
 
     public Date getEventDate() {
