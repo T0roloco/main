@@ -16,9 +16,11 @@ import java.util.Collections;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.EventBook;
 import seedu.address.model.ExpenseBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.TaskBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.PhoneContainsKeywordsPredicate;
 
@@ -26,8 +28,10 @@ import seedu.address.model.person.PhoneContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindPhoneCommand}.
  */
 public class FindPhoneCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new ExpenseBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new ExpenseBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), new ExpenseBook(), new EventBook(),
+            new TaskBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new ExpenseBook(), new EventBook(),
+            new TaskBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

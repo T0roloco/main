@@ -1,3 +1,4 @@
+//@@author ian-tjahjono
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -35,7 +36,7 @@ public class AddEventCommand extends Command {
     private final Event toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Event}
      */
     public AddEventCommand(Event event) {
         requireNonNull(event);
@@ -51,7 +52,7 @@ public class AddEventCommand extends Command {
         }
 
         model.addEvent(toAdd);
-        model.commitAddressBook();
+        model.commitEventBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
