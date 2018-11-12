@@ -1690,8 +1690,8 @@ _{ more test cases ... }_
 
 .. Prerequisites: User has added some persons
 
-.. Test case, assuming a contact name1 has been added: 
-   `findname name1` + 
+.. Test case, assuming a contact name1 has been added:
+   `findname name1` +
    Expected: Message "1 persons listed!" and listing name1
 
 .. Test case, assuming two different persons named name1 and name2 has been added:
