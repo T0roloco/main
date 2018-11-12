@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Student Planner - Developer Guide</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">Student-Planner</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link active" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2113-AY1819S1-T13-1/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Student Planner - Developer Guide</h1></div><div id="content"><div id="preamble">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">Student Planner</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link active" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2113-AY1819S1-T13-1/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Student Planner - Developer Guide</h1></div><div id="content"><div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>By: <code>CS2113-AY1819S1-T13-1</code>      Since: <code>September</code>      Licence: <code>MIT</code></p>
@@ -88,6 +88,11 @@
 <li><a href="#deleting-a-task">H.6. Deleting a task</a></li>
 <li><a href="#backup-of-data">H.7. Backup of data</a></li>
 <li><a href="#displaying-monthly-expense">H.8. Displaying monthly expense</a></li>
+<li><a href="#finding-persons-by-name-address-and-phone-number">H.9. Finding persons by name, address and phone number</a></li>
+<li><a href="#adding-a-new-event">H.10. Adding a new event</a></li>
+<li><a href="#deleting-an-event">H.11. Deleting an event</a></li>
+<li><a href="#editing-an-event">H.12. Editing an event</a></li>
+<li><a href="#clearing-an-event">H.13. Clearing an event</a></li>
 </ul>
 </li>
 </ul>
@@ -2486,6 +2491,36 @@ for <code>RemarkCommandParser</code>.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">add a new person</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">edit a person</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">so that I can update a person&#8217;s details</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">delete a person</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">remove entries that I no longer need</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">find a person by name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">locate details of persons without having to go through the entire list</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hide <a href="#private-contact-detail">private contact details</a> by default</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">minimize chance of someone else seeing them by accident</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">add a new task</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">track the tasks</p></td>
 </tr>
@@ -2532,28 +2567,37 @@ for <code>RemarkCommandParser</code>.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">locate important tasks easily</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">paranoid user</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">backup tasks locally</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">I have a backup in case I accidentally delete my tasks file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">backup data locally</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I have a backup in case I accidentally delete my data</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">paranoid user</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">backup tasks online</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">restore data locally</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I can restore data backups from other sessions</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">paranoid user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">backup data online</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">I have a backup in case my desktop computer dies or I have to switch computers.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">paranoid user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">restore data online</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I can easily restore data from another device without having to use manual data backups.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">be notified of upcoming deadlines</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">complete the tasks on time</p></td>
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p><em>{More to be added}</em></p>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -2832,7 +2876,8 @@ Use case ends.</p>
 </div>
 <h3 id="use-case-local-student-planner-data-backup-uc8" class="discrete">Use case: Local Student Planner data backup (UC8)</h3>
 <div class="paragraph">
-<p><strong>Prerequisite</strong></p>
+<p><strong>Prerequisite</strong><br>
+None</p>
 </div>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
@@ -2856,11 +2901,11 @@ Use case ends.</p>
 <div class="ulist none">
 <ul class="none">
 <li>
-<p>2a. Folder provided cannot be written to</p>
+<p>2a. Data path cannot be written to</p>
 <div class="ulist none">
 <ul class="none">
 <li>
-<p>2a1. StudentPlanner informs user that folder cannot be used for backup</p>
+<p>2a1. StudentPlanner informs user about error during backup</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -2927,7 +2972,159 @@ Use case ends.</p>
 </li>
 </ul>
 </div>
-<h3 id="use-case-add-expense-uc11" class="discrete">Use case: Add Expense(UC11)</h3>
+<h3 id="use-case-local-student-planner-data-restore-uc10" class="discrete">Use case: Local Student Planner data restore (UC10)</h3>
+<div class="paragraph">
+<p><strong>Prerequisite</strong><br>
+A backup has been made using the backup feature</p>
+</div>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to restore data locally</p>
+</li>
+<li>
+<p>StudentPlanner restores data from local backup</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a. Backup provided has invalid data</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a1. StudentPlanner informs user about error restoring data</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-online-student-planner-data-backup-uc11" class="discrete">Use case: Online Student Planner data backup (UC11)</h3>
+<div class="paragraph">
+<p><strong>Prerequisite</strong><br>
+An online backup has been made using the backup feature</p>
+</div>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to restore all data from an online service</p>
+</li>
+<li>
+<p>StudentPlanner restores data from online service</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a. User provides invalid credentials if required by online service</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a1. StudentPlanner shows error restoring data.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a. Service is not recognised or unsupported</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a1. StudentPlanner shows error.</p>
+</li>
+<li>
+<p>2a2. StudentPlanner shows help for online restore.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-add-event-uc12" class="discrete">Use case: Add Event (UC12)</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to add an event</p>
+</li>
+<li>
+<p>StudentPlanner adds new event with given details</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>2a. A similar event exists</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a1. StudentPlanner prompts user that a similar event exists. Event is not added.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>2b. Insufficient or Invalid details provided.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2b1. StudentPlanner shows required command format to user. Event is not added.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-add-expense-uc13" class="discrete">Use case: Add Expense(UC13)</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -2964,109 +3161,6 @@ Use case ends.</p>
 </li>
 </ul>
 </div>
-<h3 id="use-case-add-event-uc10" class="discrete">Use case: Add Event (UC10)</h3>
-<div class="paragraph">
-<p><strong>MSS</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests to add an event</p>
-</li>
-<li>
-<p>StudentPlanner adds new event with given details</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Extensions</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>2a. A similar event exists</p>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>2a1. StudentPlanner prompts user that a similar event exists. Event is not added.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>2b. Insufficient or Invalid details provided.</p>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>2b1. StudentPlanner shows required command format to user. Event is not added.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<h3 id="use-case-add-event-uc10-2" class="discrete">Use case: Add Event (UC10)</h3>
-<div class="paragraph">
-<p><strong>MSS</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests to add an event</p>
-</li>
-<li>
-<p>StudentPlanner adds new event with given details</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Extensions</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>2a. A similar event exists</p>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>2a1. StudentPlanner prompts user that a similar event exists. Event is not added.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>2b. Insufficient or Invalid details provided.</p>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>2b1. StudentPlanner shows required command format to user. Event is not added.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><em>{More to be added}</em></p>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -3090,9 +3184,6 @@ Use case ends.</p>
 <p>Should have internet connectivity for features requiring online interactivity.</p>
 </li>
 </ol>
-</div>
-<div class="paragraph">
-<p><em>{More to be added}</em></p>
 </div>
 </div>
 </div>
@@ -3155,6 +3246,27 @@ Use case ends.</p>
 </li>
 <li>
 <p>Not open source.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Reasons why Student Planner is better:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We incorporate the popular features in EverNote such as events and tasks into our existing contacts feature
+and also added expenses tracking so that we fit our mission of being a one stop management app for your user.</p>
+</li>
+<li>
+<p>Our application works using text commands so that power users used to a console application can be more efficient
+when using Student Planner, saving time.</p>
+</li>
+<li>
+<p>Student Planner is completely open source, our savvy target users can contribute and add more features if they want to which benefits all users.</p>
+</li>
+<li>
+<p>Student Planner is completely free.</p>
 </li>
 </ul>
 </div>
@@ -3582,5 +3694,144 @@ Expected: same as the previous test case</p>
 </ol>
 </div>
 </div>
+<div class="sect2">
+<h3 id="finding-persons-by-name-address-and-phone-number"><a class="link" href="#finding-persons-by-name-address-and-phone-number">H.9. Finding persons by name, address and phone number</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Finding persons by name</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: User has added some persons</p>
+</li>
+<li>
+<p>Test case, assuming a contact name1 has been added:
+<code>findname name1</code><br>
+Expected: Message "1 persons listed!" and listing name1</p>
+</li>
+<li>
+<p>Test case, assuming two different persons named name1 and name2 has been added:
+<code>findname name1 name2</code><br>
+Expected: Message "2 persons listed!" and listing name1 and name2</p>
+</li>
+<li>
+<p>Test case, assuming one person with name1 has been added and no person with name2:
+<code>findname name1 name2</code><br>
+Expected: Message "1 persons listed!" and listing name1</p>
+</li>
+<li>
+<p>Test case, assuming there is no person with address that include NUS:
+<code>findaddress NUS</code><br>
+Expected: Message "0 persons listed!" and not listing any person</p>
+</li>
+<li>
+<p>Test case:
+<code>findphone</code><br>
+Expected: An error message explaining how the to use the command correctly</p>
+</li>
+</ol>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 06:58:30 UTC</div></div></div></body></html>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-a-new-event"><a class="link" href="#adding-a-new-event">H.10. Adding a new event</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Adding a new event to the event book</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: The event must not already exist in student planner</p>
+</li>
+<li>
+<p>Test case: <code>addEvent n/Watch Avengers 4 movie s/26/05/2018 t/1700 c/John</code><br>
+Expected: A new event is added to the event book panel, and a success message will show on the results display panel.</p>
+</li>
+<li>
+<p>Test case: `addEvent n/Watch Avengers 4 movie t/1700 c/John `<br>
+Expected: No event is added and error details will be shown on the result display panel.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-an-event"><a class="link" href="#deleting-an-event">H.11. Deleting an event</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Deletes an event from the event book</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: The event book must not be empty</p>
+</li>
+<li>
+<p>Test case: <code>deleteEvent 1</code><br>
+Expected: The first event in the event book will be deleted and the first entry on the events panel will disappear.</p>
+</li>
+<li>
+<p>Test case: <code>deleteEvent 0</code><br>
+Expected: No event is deleted and an error message will be displayed on the results display panel.</p>
+</li>
+<li>
+<p>Test case: (If event book has only 1 event) <code>deleteEvent 2</code><br>
+Expected: No event is deleted and an error message will be displayed on the results display panel.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="editing-an-event"><a class="link" href="#editing-an-event">H.12. Editing an event</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Edits certain parameters of an event</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: The event book must not be empty</p>
+</li>
+<li>
+<p>Test case: <code>editEvent 1 t/1900</code><br>
+Expected: The time of the first event in the event book will be changed to "1900" and the time of the first event entry in the events panel will be changed to 1900.</p>
+</li>
+<li>
+<p>Test case: <code>editEvent 2</code><br>
+Expected: No event is edited and an error message will be displayed on the results display panel.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="clearing-an-event"><a class="link" href="#clearing-an-event">H.13. Clearing an event</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Clears the entire event book</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Test case: <code>clearEvent</code><br>
+Expected: The event book will be cleared and the events panel will not show any entries</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 09:45:08 UTC</div></div></div></body></html>
